@@ -1,30 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createServer } from 'miragejs'
+import { createServer, Model } from 'miragejs'
 import { App } from './App';
 import { timingSafeEqual } from 'crypto';
 
 createServer({
+  models: {
+    transaction: Model
+  },
+
   routes() {
     this.namespace = 'api';
 
     this.get('/transactions', () => {
-      return [
-        {
-          id: 1,
-          title: 'Salário',
-          amount: 1400,
-          category: 'Renda',
-          createdAt: new Date()
-        },
-        {
-          id: 2,
-          title: 'Compras',
-          amount: 300,
-          category: 'Gasto',
-          createdAt: new Date()
-        }
-      ]
+      return this.schema.all('transaction')
+    })
+
+    this.post('/transactions', (schema, request) => {
+      const data = JSON.parse(request.requestBody)
+
+      return schema.create('transaction', data)
     })
   }
 })
@@ -32,6 +27,7 @@ createServer({
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <App />
