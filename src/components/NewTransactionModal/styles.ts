@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import { darken, transparentize } from "polished"
+import styled from 'styled-components'
+import { darken, transparentize } from 'polished'
 
 export const Container = styled.form`
     h2 {
@@ -27,7 +27,7 @@ export const Container = styled.form`
         }
     }
 
-    button[type="submit"] {
+    button[type='submit'] {
         width: 100%;
         padding: 0 1.5rem;
         height: 4rem;
